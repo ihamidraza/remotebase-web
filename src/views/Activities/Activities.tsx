@@ -44,10 +44,10 @@ export function Activities(props: any) {
     }, [visible])
 
     return <MainLayoutWithRouter>
-        <h1>Activities</h1>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 20 }}>
-            <Button onClick={() => toggleModal(true)}> Add Activity </Button>
-        </div>
+        <div className='page-title'>Activities</div>
+        <div style={{display: 'flex', justifyContent: 'flex-end', margin: 20}}>
+        <Button onClick={() => toggleModal(true)}> Add Activity </Button>
+            </div>
         <List data={activities} loading={loading} />
         <AddActivity visible={visible} handleModal={toggleModal} />
     </MainLayoutWithRouter>
