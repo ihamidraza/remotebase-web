@@ -53,6 +53,9 @@ export function SignUp(props: any) {
 
             message.success('You have been registered successfully')
 
+
+            props.history.push('/signin')
+
         }
         catch (err) {
             console.error(err)
@@ -63,6 +66,7 @@ export function SignUp(props: any) {
         finally {
             toggleLoading(false)
         }
+
     };
 
 

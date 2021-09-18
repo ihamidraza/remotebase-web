@@ -46,13 +46,16 @@ export function SignIn(props: any) {
         try {
             await LoginRobin.when(LoginRobin.post('register', '', data))
 
-            message.success('You have been registered successfully')
+            message.success('You have been logged in successfully')
+
+            props.history.push('/')
+
 
         }
         catch (err) {
             console.error(err)
 
-            message.error('Error while registering')
+            message.error('Error while signing in')
 
         }
         finally {
@@ -65,7 +68,7 @@ export function SignIn(props: any) {
         <Form
             {...formItemLayout}
             form={form}
-            name="singin"
+            name="signin"
             onFinish={onFinish}
             scrollToFirstError
         >
