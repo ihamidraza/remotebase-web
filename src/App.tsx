@@ -47,9 +47,6 @@ const checkUserSession = () => {
 
 function App() {
 
-  // const layout = (props: any) => <> <LeftSider {...props} />
-  //   <MainLayoutWithRouter {...props} /></>
-
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Router>
