@@ -161,17 +161,6 @@ export function SignUp(props: any) {
             <Input />
         </Form.Item>
 
-        <Form.Item
-            name="gender"
-            label="Gender"
-            rules={[{ required: true, message: 'Please select gender!' }]}
-        >
-            <Select placeholder="select your gender">
-                <Option value="male">Male</Option>
-                <Option value="female">Female</Option>
-                <Option value="other">Other</Option>
-            </Select>
-        </Form.Item>
 
         <Form.Item
             name="interests"
@@ -198,7 +187,7 @@ export function SignUp(props: any) {
         </Form.Item>
 
         <Form.Item
-            name="open-to_hire"
+            name="open_to_hire"
             valuePropName="checked"
             {...tailFormItemLayout}
         >

@@ -53,7 +53,7 @@ export function Activities(props: any) {
     }, [])
 
     return <MainLayoutWithRouter>
-        <h1>Activities</h1>
+        <div className='page-title'>Activities</div>
         <div style={{display: 'flex', justifyContent: 'flex-end', margin: 20}}>
         <Button onClick={() => toggleModal(true)}> Add Activity </Button>
             </div>

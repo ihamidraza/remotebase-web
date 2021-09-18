@@ -61,8 +61,9 @@ function App() {
           </>
           :
           <Switch>
+            <Redirect exact from='/' to='/login' />
             <Route path='/signup' exact render={(props) => <SignUp {...props} />} />
-            <Route path='/' render={(props) => <SignIn {...props} />} />
+            <Route path='/login' render={(props) => <SignIn {...props} />} />
           </Switch>
         }
       </Router>

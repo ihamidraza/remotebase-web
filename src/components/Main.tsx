@@ -5,21 +5,20 @@ import { withRouter } from 'react-router-dom';
 
 import './Main.css'
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 
 export function MainLayout(props: any) {
     console.log(props)
     return (
         <Layout>
-            <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
-            <Content style={{ margin: '24px 16px 0' }}>
-                <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '85vh', marginLeft: '15vw' }}>
+            <Content style={{ margin: '24px 20px 0px 16px' }}>
+                <div className="site-layout-background" style={{ padding: 24, minHeight: 360, height: '85vh', marginLeft: '210px' }}>
 							{props.children}
 						</div>
     
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Remote Web ©2021 Created by Team glasc.io</Footer>
+            <Footer style={{ textAlign: 'center' ,backgroundColor: 'white', margin: '25px 20px 15px 225px' }}>Remote Web ©2021 Created by Team glasc.io</Footer>
         </Layout>)
 
 }
