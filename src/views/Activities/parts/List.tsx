@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import moment from 'moment'
 import { Table, Tag, Space, Button, message } from 'antd'
 
 import { robins } from '../../../robin'
+import { getConfig } from '../../../config'
 
 const { ActivitiesRobin } = robins
 
@@ -18,7 +19,9 @@ export function List(props: Props) {
     const handleJoin = async (activityId: number) => {
 
         try {
-            await ActivitiesRobin.when(ActivitiesRobin.post('post', `/${activityId}/request`, data))
+
+            await ActivitiesRobin.when(ActivitiesRobin.post('post', `/${activityId}/request`, data, getConfig()))
+
             message.success('Your request has been sent sucessfully')
 
         }
@@ -45,7 +48,7 @@ export function List(props: Props) {
             key: 'type',
         },
         {
-            title: 'location',
+            title: 'Location',
             dataIndex: 'location',
             key: 'location',
             sorter: (a: any, b: any) => a.location.localeCompare(b.location),
@@ -55,11 +58,14 @@ export function List(props: Props) {
             title: 'Start Time',
             dataIndex: 'start_time',
             key: 'start_time',
+            render: (value: string) => moment(value).format('MMM DD, LT')
         },
         {
             title: 'End Time',
             dataIndex: 'end_time',
             key: 'end_time',
+            render: (value: string) => moment(value).format('MMM DD, LT')
+
         },
         {
             title: 'Added By',
