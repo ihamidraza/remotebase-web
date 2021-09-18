@@ -1,12 +1,14 @@
 
 import { useState } from 'react'
 
-import { Modal, Card, Form, Select, Input, DatePicker, message, Button, InputNumber } from 'antd'
+import { Modal, Card, Form, Select, Input, DatePicker, message, Button, InputNumber, } from 'antd'
 import moment from 'moment'
 
 import { robins } from '../../../robin'
 
 const { RangePicker } = DatePicker;
+
+const { TextArea } = Input;
 
 const { ActivitiesRobin } = robins
 const formItemLayout = {
@@ -127,7 +129,7 @@ export function AddActivity(props: Props) {
                         format="YYYY-MM-DD HH:mm:ss"
                     />
                 </Form.Item>
-              
+
 
                 <Form.Item
                     name="tags"
@@ -140,8 +142,26 @@ export function AddActivity(props: Props) {
                     >
                     </Select>
                 </Form.Item>
+                <Form.Item
+                    name="max_participants"
+                    label="Max. "
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input max participants!',
+                        },
+                    ]}
+                >
+                    <InputNumber style={{width: '100%'}} />
+                </Form.Item>
+                <Form.Item
+                    name="description"
+                    label="Additional Info."
+                >
+                    < TextArea />
+                </Form.Item>
 
-              
+
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit" loading={loading}>
                         Register
