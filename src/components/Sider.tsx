@@ -6,8 +6,19 @@ import { withRouter } from 'react-router-dom';
 
 const { Sider } = Layout;
 
+const navBar =[{
+  name: 'Activities',
+  path: '/activities',
+  icon: <UserOutlined />
+},{
+  name: 'Activities',
+  path: '/activities',
+  icon: <UserOutlined />
+}]
+
 
 export function LeftSider() {
+
     return (
     <Sider
       breakpoint="lg"
@@ -28,7 +39,7 @@ export function LeftSider() {
       <div className="logo" />
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
         <Menu.Item key="1" icon={<UserOutlined />}>
-          nav 1
+          Activities
         </Menu.Item>
         <Menu.Item key="2" icon={<VideoCameraOutlined />}>
           nav 2
