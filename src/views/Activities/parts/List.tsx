@@ -3,7 +3,7 @@ import { Table, Tag, Space, Button, message } from 'antd'
 
 import { robins } from '../../../robin'
 
-const { JoinActivityRobin, LoginRobin } = robins
+const { ActivitiesRobin } = robins
 
 
 interface Props {
@@ -15,22 +15,12 @@ export function List(props: Props) {
 
     const { data, loading } = props
 
-    const [requests, addRequest] = useState([] as any)
-
     const handleJoin = async (activityId: number) => {
 
-        const user = LoginRobin.getResult('login')
-
-        const data = {
-            activity_id: activityId,
-            // user_id: user.id
-        }
-
         try {
-            await JoinActivityRobin.when(JoinActivityRobin.post('post', '', data))
+            await ActivitiesRobin.when(ActivitiesRobin.post('post', `/${activityId}/request`, data))
             message.success('Your request has been sent sucessfully')
 
-            addRequest([...requests, activityId])
         }
         catch (err) {
             console.error(err)
@@ -106,7 +96,7 @@ export function List(props: Props) {
             key: 'action',
             render: (text: any, record: any) => (
                 <Space size="middle">
-                    <Button onClick={() => handleJoin(record.id)} disabled={requests.includes(record.id)}> Join </Button>
+                    <Button onClick={() => handleJoin(record.id)}> Join </Button>
                 </Space>
             ),
         },

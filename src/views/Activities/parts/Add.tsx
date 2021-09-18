@@ -60,7 +60,7 @@ export function AddActivity(props: Props) {
         }
 
         delete values.time
-        
+
         console.log('Received values of form: ', values);
         toggleLoading(true)
 
@@ -111,7 +111,7 @@ export function AddActivity(props: Props) {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your E-mail!',
+                            message: 'Please input activity name!',
                         },
                     ]}
                 >
@@ -141,6 +141,13 @@ export function AddActivity(props: Props) {
                         }}
                         format="YYYY-MM-DD HH:mm:ss"
                     />
+                </Form.Item>
+
+                <Form.Item
+                    name="location"
+                    label="Location"
+                >
+                    <Input />
                 </Form.Item>
 
 
