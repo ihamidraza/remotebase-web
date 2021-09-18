@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Menu } from 'antd';
 
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, PoweroffOutlined } from '@ant-design/icons';
+import { ContactsOutlined, MailOutlined, TeamOutlined, NotificationOutlined, PhoneOutlined, TrophyOutlined, VideoCameraOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie'
 
@@ -12,33 +12,33 @@ const { Sider } = Layout;
 const navBar = [{
   name: 'Activities',
   path: '/activities',
-  icon: <UserOutlined />
+  icon: <ContactsOutlined />
 }, {
   name: 'Community',
   path: '/communities',
-  icon: <UserOutlined />,
+  icon: <TeamOutlined />,
   disabled: true
 }, {
   name: 'Recommendations',
   path: '/recommendations',
-  icon: <UserOutlined />,
+  icon: <NotificationOutlined />,
   disabled: true
 }, {
   name: 'Mentorship',
   path: '/mentorship',
-  icon: <UserOutlined />,
+  icon: <PhoneOutlined />,
   disabled: true
 },
 {
   name: 'Careers',
   path: '/careers',
-  icon: <UploadOutlined />,
+  icon: <TrophyOutlined />,
   disabled: true
 },
 {
   name: 'Messages',
   path: '/messages',
-  icon: <UserOutlined />,
+  icon: <MailOutlined />,
   disabled: true
 },
 {
