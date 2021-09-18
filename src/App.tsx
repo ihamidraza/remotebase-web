@@ -1,25 +1,28 @@
 import React from 'react';
+import { Layout, Menu } from 'antd';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+
+import { LeftSider, MainLayoutWithRouter } from './components'
+import { Activities, SignUp, SignIn } from './views'
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const layout = (props: any) => <> <LeftSider {...props} />
+    <MainLayoutWithRouter {...props} /></>
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Router>
+        <Route path='/' component={LeftSider} />
+        <Switch>
+        <Route path='/signup' exact render={(props) => <SignUp {...props} />} />
+        <Route path='/signin' exact render={(props) => <SignIn {...props} />} />
+          <Route path='/' exact render={(props) => <Activities {...props} />} />
+        </Switch>
+      </Router>
+    </Layout>
   );
 }
 
