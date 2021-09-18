@@ -9,6 +9,12 @@ export const robins = {
     LoginRobin: new CollectionRobin({
         baseUrl: `${SERVER_URL}api/v1/authentication/login`,
     }),
+    ActivitiesRobin: new CollectionRobin({
+        baseUrl: `${SERVER_URL}api/v1/activities`,
+    }),
+    JoinActivityRobin: new CollectionRobin({
+        baseUrl: `${SERVER_URL}api/v1/activities/join`,
+    }),
 
 }
 
