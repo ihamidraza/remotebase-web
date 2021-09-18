@@ -1,4 +1,6 @@
-import { CollectionRobin } from '@simplus/robin';
+import { CollectionRobin, RobinProvider } from '@simplus/robin';
+import RobinReact from '@simplus/robin-react';
+
 const SERVER_URL = ((window as any).SERVER_URL || { SERVER_URL: '' }).SERVER_URL || 'http://localhost:3010/';
 
 export const robins = {
@@ -17,4 +19,8 @@ export const robins = {
     }),
 
 }
+
+const provider = new RobinProvider(robins);
+
+export default () => RobinReact.setProvider(provider);
 
