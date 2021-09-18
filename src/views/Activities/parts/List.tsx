@@ -28,7 +28,7 @@ export function List(props: Props) {
     const { data, loading, handleJoin, handleDelete } = props
 
     const [visible, toggleModal] = useState(false)
-    const [row, setRow] = useState({})
+    const [row, setRow] = useState(null)
 
     const onRowClick = (record: any, rowIndex: any) => {
         console.log(record, rowIndex)

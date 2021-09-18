@@ -14,6 +14,8 @@ export function ViewActivity(props: Props) {
 
     const { data, visible, handleModal } = props
 
+    if(!data) return null
+
     const renderTags = (tags: any) => {
         const data = JSON.parse(tags)
         return (
@@ -30,9 +32,6 @@ export function ViewActivity(props: Props) {
             </>
         )
     }
-
-
-
 
     return <Modal
         title={data.name}
