@@ -25,7 +25,7 @@ const navBar = [{
   name: 'Recommendations',
   path: '/recommendations',
   icon: <NotificationOutlined />,
-  disabled: true
+  // disabled: true
 }, {
   name: 'Mentorship',
   path: '/mentorship',

@@ -1,4 +1,5 @@
 export * from './Activities/Activities'
 export * from './Community'
+export * from './Recommendations'
 export * from './SignUp'
 export * from './SignIn'

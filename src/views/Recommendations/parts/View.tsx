@@ -15,12 +15,10 @@ export function ViewActivity(props: Props) {
     if(!data) return null
 
     const renderTags = (tags: any) => {
-        if (!tags.includes('[')) return
-
-        const data = JSON.parse(tags)
+     
         return (
             <>
-                {data.map((tag: any) => {
+                {tags.map((tag: any) => {
                     let color = tag.length > 5 ? 'geekblue' : 'green';
 
                     return (
@@ -46,29 +44,21 @@ export function ViewActivity(props: Props) {
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div>
-                        <b>Type: </b> {data.type}
+                        <b>Votes: </b> {data.votes}
                     </div>
                     <div>
-                        <b>Location: </b> {data.location || 'N/A'}
-                    </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>
-                        <b>Start Time: </b> {moment(data.start_time).format('MMM DD, LT')}
-                    </div>
-                    <div>
-                        <b>End Time: </b> {moment(data.end_time).format('MMM DD, LT')}
+                        <b>Tags: </b> {renderTags(data.tags)}
                     </div>
                 </div>
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
                     <b>Max. Participants: </b> {data.allowed_participants}
                 </div>
                 <div>
                     <b>Tags: </b> {renderTags(data.tags)}
                 </div>
-            </div>
+            </div> */}
             <div><b>Details</b></div>
             <div>{data.description}</div>
 

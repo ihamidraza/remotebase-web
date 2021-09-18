@@ -20,6 +20,9 @@ export const robins = {
     UsersRobin: new CollectionRobin({
         baseUrl: `${SERVER_URL}api/v1/users`,
     }),
+    RecommendationsRobin: new CollectionRobin({
+        baseUrl: `${SERVER_URL}api/v1/recommendations`,
+    }),
 
 }
 
