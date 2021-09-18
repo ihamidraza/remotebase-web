@@ -9,6 +9,7 @@ import {
 } from 'antd';
 
 import { robins } from '../robin'
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -17,24 +18,18 @@ const { RegisterRobin } = robins
 
 const formItemLayout = {
     labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
+      xs: { span: 8 },
     },
     wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
+      xs: { span: 12 },
     },
 };
 const tailFormItemLayout = {
     wrapperCol: {
-        xs: {
-            span: 24,
-            offset: 0,
-        },
-        sm: {
-            span: 16,
-            offset: 8,
-        },
+      xs: {
+        span: 18,
+        offset: 6,
+      },
     },
 };
 
@@ -208,10 +203,15 @@ export function SignUp(props: any) {
             </Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit" loading={loading}>
-                Register
-            </Button>
-        </Form.Item>
+        <Button size='large' type="primary" htmlType="submit" loading={loading} style={{width: 200, marginRight: '1rem'}}>
+        Register
+      </Button>
+      <Link to='/'>
+      <Button  size='large' type="primary" style={{width: 100}}>
+        Back
+      </Button>
+      </Link>
+      </Form.Item>
     </Form>
     </div>
 
