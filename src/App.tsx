@@ -8,10 +8,7 @@ import './App.css';
 
 function App() {
 
-  // const layout = (props: any) => <> <LeftSider {...props} />
-  //   <MainLayoutWithRouter {...props} /></>
-
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Router>

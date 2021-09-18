@@ -1,3 +1,3 @@
-export * from './Activities'
+export * from './Activities/Activities'
 export * from './SignUp'
 export * from './SignIn'

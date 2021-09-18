@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Layout, Menu } from 'antd';
 
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
@@ -6,20 +6,52 @@ import { withRouter } from 'react-router-dom';
 
 const { Sider } = Layout;
 
-const navBar =[{
+const navBar = [{
   name: 'Activities',
   path: '/activities',
   icon: <UserOutlined />
-},{
-  name: 'Activities',
-  path: '/activities',
+}, {
+  name: 'Community',
+  path: '/communities',
   icon: <UserOutlined />
-}]
+}, {
+  name: 'Recommendations',
+  path: '/recommendations',
+  icon: <UserOutlined />
+}, {
+  name: 'Mentorship',
+  path: '/mentorship',
+  icon: <UserOutlined />
+},
+{
+  name: 'Careers',
+  path: '/careers',
+  icon: <UploadOutlined />
+},
+{
+  name: 'Messages',
+  path: '/messages',
+  icon: <UserOutlined />
+},
+{
+  name: 'Chatrooms',
+  path: '/chatrooms',
+  icon: <VideoCameraOutlined />
+}
+]
 
 
-export function LeftSider() {
+export function LeftSider(props: any) {
 
-    return (
+  const [selectedKey, selectKey] = useState(['1'])
+
+  const handleClick = (path: string, key: any) => {
+    selectKey([key])
+    props.history.push(path)
+
+  }
+
+  return (
     <Sider
       breakpoint="lg"
       collapsedWidth="0"
@@ -37,22 +69,16 @@ export function LeftSider() {
       }}
     >
       <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-        <Menu.Item key="1" icon={<UserOutlined />}>
-          Activities
-        </Menu.Item>
-        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-          nav 2
-        </Menu.Item>
-        <Menu.Item key="3" icon={<UploadOutlined />}>
-          nav 3
-        </Menu.Item>
-        <Menu.Item key="4" icon={<UserOutlined />}>
-          nav 4
-        </Menu.Item>
+      <Menu theme="dark" mode="inline" selectedKeys={selectedKey}>
+        {navBar.map(({ name, icon, path }, i) => <Menu.Item
+          key={i + 1}
+          icon={icon}
+          onClick={() => handleClick(path, i + 1)} >{name}</Menu.Item>)
+        }
+
       </Menu>
     </Sider>
   )
-    
+
 }
 
