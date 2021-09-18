@@ -12,13 +12,15 @@ export function ViewActivity(props: Props) {
 
     const { data, visible, handleModal } = props
 
-    if(!data) return null
+    if (!data) return null
 
-    const renderTags = (tags: any) => {
-        const data = JSON.parse(tags)
+    const renderTags = (data: any) => {
+        if(!data.includes('[')) return data
+
+        const tags = JSON.parse(data)
         return (
             <>
-                {data.map((tag: any) => {
+                {tags.map((tag: any) => {
                     let color = tag.length > 5 ? 'geekblue' : 'green';
 
                     return (
@@ -44,31 +46,37 @@ export function ViewActivity(props: Props) {
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div>
-                        <b>Type: </b> {data.type}
+                        <b>Email: </b> {data.email}
                     </div>
                     <div>
-                        <b>Location: </b> {data.location || 'N/A'}
+                        <b>Phone: </b> {data.phone_number || 'N/A'}
                     </div>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <div>
-                        <b>Start Time: </b> {moment(data.start_time).format('MMM DD, LT')}
+                        <b>Company: </b> {data.company}
                     </div>
                     <div>
-                        <b>End Time: </b> {moment(data.end_time).format('MMM DD, LT')}
+                        <b>Designation: </b> {data.designation}
                     </div>
                 </div>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
-                    <b>Max. Participants: </b> {data.allowed_participants}
+                    <b>City: </b> {data.city}
                 </div>
                 <div>
-                    <b>Tags: </b> {renderTags(data.tags)}
+                    <b>country: </b> {data.country}
                 </div>
             </div>
-            <div><b>Details</b></div>
-            <div>{data.description}</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>
+                    <b>Interests: </b> {renderTags(data.interests)}
+                </div>
+                <div>
+                    <b>Skills: </b> {renderTags(data.skills)}
+                </div>
+            </div>
 
         </Card>
     </Modal>

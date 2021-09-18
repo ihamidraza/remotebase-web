@@ -17,6 +17,9 @@ export const robins = {
     JoinActivityRobin: new CollectionRobin({
         baseUrl: `${SERVER_URL}api/v1/activities/join`,
     }),
+    UsersRobin: new CollectionRobin({
+        baseUrl: `${SERVER_URL}api/v1/users`,
+    }),
 
 }
 

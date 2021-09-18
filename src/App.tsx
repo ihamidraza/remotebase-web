@@ -3,7 +3,7 @@ import { Layout, Menu } from 'antd';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import { LeftSider, MainLayoutWithRouter } from './components'
-import { Activities, SignUp, SignIn } from './views'
+import { Activities, SignUp, SignIn, Community } from './views'
 import './App.css';
 import axios from 'axios'
 import Cookies from 'universal-cookie'
@@ -13,7 +13,7 @@ const cookies = new Cookies();
 axios.interceptors.request.use((request: any) => {
 	if (cookies.get('token')) {
 		const token = cookies.get('token');
-		if ( token !== null && token !== undefined && token !== '' ) {
+		if (token !== null && token !== undefined && token !== '') {
 			request.headers.authorization = `Bearer ${token}`;
 		}
 	}
@@ -47,28 +47,30 @@ const checkUserSession = () => {
 
 function App() {
 
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Router>
-        {
-          checkUserSession() ? 
-          <>
-            <Redirect exact from='/' to='/activities' />
-            <Route path='/' component={LeftSider} />
-            <Switch>
-              <Route path='/activities' exact render={(props) => <Activities {...props} />} />
-            </Switch>
-          </>
-          :
-          <Switch>
-            <Redirect exact from='/' to='/login' />
-            <Route path='/signup' exact render={(props) => <SignUp {...props} />} />
-            <Route path='/login' render={(props) => <SignIn {...props} />} />
-          </Switch>
-        }
-      </Router>
-    </Layout>
-  );
+	return (
+		<Layout style={{ minHeight: '100vh' }}>
+			<Router>
+				{
+					checkUserSession() ?
+						<>
+							<Redirect exact from='/' to='/activities' />
+							<Route path='/' component={LeftSider} />
+							<Switch>
+								<Route path='/activities' exact render={(props) => <Activities {...props} />} />
+								<Route path='/community' exact render={(props) => <Community {...props} />} />
+
+							</Switch>
+						</>
+						:
+						<Switch>
+							<Redirect exact from='/' to='/login' />
+							<Route path='/signup' exact render={(props) => <SignUp {...props} />} />
+							<Route path='/login' render={(props) => <SignIn {...props} />} />
+						</Switch>
+				}
+			</Router>
+		</Layout>
+	);
 }
 
 export default App;
