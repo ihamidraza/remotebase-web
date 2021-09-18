@@ -1,26 +1,35 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import { LeftSider, MainLayoutWithRouter } from './components'
 import { Activities, SignUp, SignIn } from './views'
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
 
-  const layout = (props: any) => <> <LeftSider {...props} />
-    <MainLayoutWithRouter {...props} /></>
+  // const layout = (props: any) => <> <LeftSider {...props} />
+  //   <MainLayoutWithRouter {...props} /></>
 
+  const isLoggedIn = false;
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Router>
-        <Route path='/' component={LeftSider} />
-        <Switch>
-        <Route path='/signup' exact render={(props) => <SignUp {...props} />} />
-        <Route path='/signin' exact render={(props) => <SignIn {...props} />} />
-          <Route path='/' exact render={(props) => <Activities {...props} />} />
-        </Switch>
+        {
+          isLoggedIn ? 
+          <>
+            <Redirect exact from='/' to='/activities' />
+            <Route path='/' component={LeftSider} />
+            <Switch>
+              <Route path='/activities' exact render={(props) => <Activities {...props} />} />
+            </Switch>
+          </>
+          :
+          <Switch>
+            <Route path='/signup' exact render={(props) => <SignUp {...props} />} />
+            <Route path='/' render={(props) => <SignIn {...props} />} />
+          </Switch>
+        }
       </Router>
     </Layout>
   );
