@@ -39,17 +39,16 @@ export function SignUp(props: any) {
     const [loading, toggleLoading] = useState(false)
 
     const onFinish = async (values: any) => {
-        const data = JSON.stringify(values)
         console.log('Received values of form: ', values);
         toggleLoading(true)
 
         try {
-            await RegisterRobin.when(RegisterRobin.post('register', '', data))
+            await RegisterRobin.when(RegisterRobin.post('register', '/', values))
 
             message.success('You have been registered successfully')
 
 
-            props.history.push('/signin')
+            props.history.push('/login')
 
         }
         catch (err) {
@@ -186,7 +185,7 @@ export function SignUp(props: any) {
             </Select>
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
             name="open_to_hire"
             valuePropName="checked"
             {...tailFormItemLayout}
@@ -194,7 +193,7 @@ export function SignUp(props: any) {
             <Checkbox>
                 Are you open for opportunities ?
             </Checkbox>
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item {...tailFormItemLayout}>
         <Button size='large' type="primary" htmlType="submit" loading={loading} style={{width: 200, marginRight: '1rem'}}>
         Register

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Menu } from 'antd';
 
-import { ContactsOutlined, MailOutlined, TeamOutlined, NotificationOutlined, PhoneOutlined, TrophyOutlined, VideoCameraOutlined, PoweroffOutlined } from '@ant-design/icons';
+import { UserOutlined, ContactsOutlined, MailOutlined, TeamOutlined, NotificationOutlined, PhoneOutlined, TrophyOutlined, VideoCameraOutlined, PoweroffOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie'
 
@@ -46,6 +46,12 @@ const navBar = [{
   path: '/chatrooms',
   icon: <VideoCameraOutlined />,
   disabled: true
+},
+{
+  name: 'Profile',
+  path: '/profile',
+  icon: <UserOutlined />,
+  disabled: false
 }
 ]
 
