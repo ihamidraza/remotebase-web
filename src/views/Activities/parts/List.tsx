@@ -23,7 +23,7 @@ export function List(props: Props) {
 
         const data = {
             activity_id: activityId,
-            user_id: user.id
+            // user_id: user.id
         }
 
         try {
@@ -89,7 +89,7 @@ export function List(props: Props) {
             dataIndex: 'tags',
             render: (tags: any) => (
                 <>
-                    {tags.map((tag: any) => {
+                    {Array.isArray(tags) ? tags.map((tag: any) => {
                         let color = tag.length > 5 ? 'geekblue' : 'green';
 
                         return (
@@ -97,7 +97,7 @@ export function List(props: Props) {
                                 {tag.toUpperCase()}
                             </Tag>
                         );
-                    })}
+                    }) : tags}
                 </>
             ),
         },

@@ -7,6 +7,8 @@ import { MainLayoutWithRouter } from '../../components'
 import { List, AddActivity } from './parts'
 import { robins } from '../../robin'
 
+import { getConfig } from '../../config'
+
 const { ActivitiesRobin } = robins
 
 
@@ -21,9 +23,9 @@ export function Activities(props: any) {
         toggleLoading(true)
 
         try {
-            await ActivitiesRobin.when(ActivitiesRobin.find())
+            await ActivitiesRobin.when(ActivitiesRobin.get('activities', '', getConfig()))
 
-            const { data } = (ActivitiesRobin.getCollection() as any)
+            const { data } = (ActivitiesRobin.getResult('activities') as any)
 
             setActivities(data)
 
@@ -36,21 +38,10 @@ export function Activities(props: any) {
         }
     }
 
-    // const data = [{
-    //     name: 'Bowling',
-    //     type: 'Outdoor',
-    //     tags: ['bowling', 'outdoor'],
-    //     location: 'F-9, Islamabad',
-    //     start_time: '2021-09-21 08:00 PM',
-    //     end_time: '2021-09-21 09:00 PM',
-    //     created_by: 'Hamid',
-    //     description: 'Outdoor Activity'
-
-    // }]
-
     useEffect(() => {
+        if(!visible)
         getActivities()
-    }, [])
+    }, [visible])
 
     return <MainLayoutWithRouter>
         <div className='page-title'>Activities</div>

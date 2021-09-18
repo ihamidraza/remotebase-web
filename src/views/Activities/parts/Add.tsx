@@ -5,6 +5,7 @@ import { Modal, Card, Form, Select, Input, DatePicker, message, Button, InputNum
 import moment from 'moment'
 
 import { robins } from '../../../robin'
+import { getConfig } from '../../../config'
 
 const { RangePicker } = DatePicker;
 
@@ -49,14 +50,26 @@ export function AddActivity(props: Props) {
 
 
     const onFinish = async (values: any) => {
-        const data = JSON.stringify(values)
+        // const data = { ...values, start_time: values.time[0].toISOString, end_time: values?.time?[1]?.toISOString() }
+
+        if (values?.time?.[0]) {
+            values.start_time = values.time[0].toISOString()
+        }
+        if (values?.time?.[1]) {
+            values.end_time = values.time[1].toISOString()
+        }
+
+        delete values.time
+        
         console.log('Received values of form: ', values);
         toggleLoading(true)
 
         try {
-            await ActivitiesRobin.when(ActivitiesRobin.post('register', '', data))
+            await ActivitiesRobin.when(ActivitiesRobin.post('new-activity', '', values, getConfig()))
 
             message.success('You have been registered successfully')
+
+            handleModal(false)
 
 
         }
@@ -152,7 +165,7 @@ export function AddActivity(props: Props) {
                         },
                     ]}
                 >
-                    <InputNumber style={{width: '100%'}} />
+                    <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
                 <Form.Item
                     name="description"
