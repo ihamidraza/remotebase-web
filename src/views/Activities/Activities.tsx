@@ -38,17 +38,53 @@ export function Activities(props: any) {
         }
     }
 
+
+    const handleJoin = async (activityId: number) => {
+
+        try {
+
+            await ActivitiesRobin.when(ActivitiesRobin.post('post', `/${activityId}/request`, {}, getConfig()))
+
+            message.success('Your request has been sent sucessfully')
+
+        }
+        catch (err) {
+            console.error(err)
+            message.error('Error while sending join request')
+
+        }
+
+    }
+
+    const handleDelete = async (activityId: number) => {
+
+        try {
+
+            await ActivitiesRobin.when(ActivitiesRobin.delete('deleted', `/${activityId}`, getConfig()))
+
+            message.success('Your activity has been deleted sucessfully')
+            getActivities()
+
+        }
+        catch (err) {
+            console.error(err)
+            message.error('Error while deleting activity')
+
+        }
+
+    }
+
     useEffect(() => {
-        if(!visible)
-        getActivities()
+        if (!visible)
+            getActivities()
     }, [visible])
 
     return <MainLayoutWithRouter>
         <div className='page-title'>Activities</div>
-        <div style={{display: 'flex', justifyContent: 'flex-end', margin: 20}}>
-        <Button onClick={() => toggleModal(true)}> Add Activity </Button>
-            </div>
-        <List data={activities} loading={loading} />
+        <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 20 }}>
+            <Button onClick={() => toggleModal(true)}> Add Activity </Button>
+        </div>
+        <List data={activities} loading={loading} handleJoin={handleJoin} handleDelete={handleDelete} />
         <AddActivity visible={visible} handleModal={toggleModal} />
     </MainLayoutWithRouter>
 }

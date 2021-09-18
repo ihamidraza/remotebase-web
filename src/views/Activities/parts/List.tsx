@@ -1,37 +1,42 @@
 import moment from 'moment'
 import { Table, Tag, Space, Button, message } from 'antd'
+import Cookies from 'universal-cookie'
+
+import { ViewActivity } from './View'
 
 import { robins } from '../../../robin'
 import { getConfig } from '../../../config'
 
-const { ActivitiesRobin } = robins
+import './List'
+import { useState } from 'react'
+
+
+const cookies = new Cookies();
+
+const { ActivitiesRobin, LoginRobin } = robins
 
 
 interface Props {
     data: any[],
-    loading: boolean
+    loading: boolean,
+    handleJoin: Function,
+    handleDelete: Function
 }
 
 export function List(props: Props) {
 
-    const { data, loading } = props
+    const { data, loading, handleJoin, handleDelete } = props
 
-    const handleJoin = async (activityId: number) => {
+    const [visible, toggleModal] = useState(false)
+    const [row, setRow] = useState({})
 
-        try {
+    const onRowClick = (record: any, rowIndex: any) => {
+        console.log(record, rowIndex)
 
-            await ActivitiesRobin.when(ActivitiesRobin.post('post', `/${activityId}/request`, data, getConfig()))
-
-            message.success('Your request has been sent sucessfully')
-
-        }
-        catch (err) {
-            console.error(err)
-            message.error('Error while sending join request')
-
-        }
-
+        setRow(record)
+        toggleModal(true)
     }
+
 
     const columns = [
         {
@@ -83,37 +88,58 @@ export function List(props: Props) {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
-            render: (tags: any) => (
-                <>
-                    {Array.isArray(tags) ? tags.map((tag: any) => {
-                        let color = tag.length > 5 ? 'geekblue' : 'green';
+            render: (tags: any) => {
+                const data = JSON.parse(tags)
+                return (
+                    <>
+                        {data.map((tag: any) => {
+                            let color = tag.length > 5 ? 'geekblue' : 'green';
 
-                        return (
-                            <Tag color={color} key={tag}>
-                                {tag.toUpperCase()}
-                            </Tag>
-                        );
-                    }) : tags}
-                </>
-            ),
+                            return (
+                                <Tag color={color} key={tag}>
+                                    {tag.toUpperCase()}
+                                </Tag>
+                            );
+                        })}
+                    </>
+                )
+            },
         },
         {
             title: 'Action',
             key: 'action',
-            render: (text: any, record: any) => (
-                <Space size="middle">
-                    <Button onClick={() => handleJoin(record.id)}> Join </Button>
-                </Space>
-            ),
+            render: (text: any, record: any) => {
+
+                const user = cookies.get('profile')
+
+                console.log(user.id, record.created_by)
+
+                return (
+                    <Space size="middle">
+                        {user.id !== record.created_by ?
+                            <Button onClick={() => handleJoin(record.id)}> Join </Button>
+                            : <Button onClick={() => handleDelete(record.id)}> Delete </Button>}
+                    </Space>
+                )
+            },
         },
     ];
 
 
 
-    return <Table
+    return <>
+    <Table
         columns={columns}
         dataSource={data}
         loading={loading}
+        onRow={(record, rowIndex) => {
+            return {
+                onClick: () => onRowClick(record, rowIndex), // click row
+            };
+        }}
+        rowClassName='table-row'
     />
+    <ViewActivity data={row} visible={visible} handleModal={toggleModal} />
+        </>
 
 }

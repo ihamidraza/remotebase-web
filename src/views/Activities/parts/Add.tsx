@@ -163,7 +163,7 @@ export function AddActivity(props: Props) {
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    name="max_participants"
+                    name="allowed_participants"
                     label="Max. "
                     rules={[
                         {
@@ -184,7 +184,7 @@ export function AddActivity(props: Props) {
 
                 <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit" loading={loading}>
-                        Register
+                        Add
                     </Button>
                 </Form.Item>
             </Form>

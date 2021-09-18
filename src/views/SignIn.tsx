@@ -45,9 +45,10 @@ export function SignIn(props: any) {
     try {
       await LoginRobin.when(LoginRobin.post('login', '', values))
 
-      const { token } = LoginRobin.getResult('login')
+      const { token, profile } = LoginRobin.getResult('login')
 
       cookies.set('token', token, { path: '/' })
+      cookies.set('profile', profile)
 
       message.success('You have been logged in successfully')
 
