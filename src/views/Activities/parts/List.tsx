@@ -30,7 +30,7 @@ export function List(props: Props) {
     const [visible, toggleModal] = useState(false)
     const [row, setRow] = useState(null)
 
-    const onRowClick = (record: any, rowIndex: any) => {
+    const onRowClick = (record: any) => {
 
         setRow(record)
         toggleModal(true)
@@ -52,13 +52,6 @@ export function List(props: Props) {
             key: 'type',
         },
         {
-            title: 'Location',
-            dataIndex: 'location',
-            key: 'location',
-            sorter: (a: any, b: any) => a.location.localeCompare(b.location),
-
-        },
-        {
             title: 'Start Time',
             dataIndex: 'start_time',
             key: 'start_time',
@@ -72,13 +65,6 @@ export function List(props: Props) {
 
         },
         {
-            title: 'Added By',
-            dataIndex: ['created_by_obj', 'name'],
-            key: 'created_by',
-            sorter: (a: any, b: any) => a.created_by.localeCompare(b.created_by),
-
-        },
-        {
             title: 'Description',
             dataIndex: 'description',
             key: 'description',
@@ -88,13 +74,10 @@ export function List(props: Props) {
             key: 'tags',
             dataIndex: 'tags',
             render: (tags: any) => {
-                if (!tags.includes('[')) return
-                const data = JSON.parse(tags)
                 return (
                     <>
-                        {data.map((tag: any) => {
+                        {tags.map((tag: any) => {
                             let color = tag.length > 5 ? 'geekblue' : 'green';
-
                             return (
                                 <Tag color={color} key={tag}>
                                     {tag.toUpperCase()}
@@ -113,11 +96,14 @@ export function List(props: Props) {
                 const user = cookies.get('profile')
 
                 return (
-                    <Space size="middle">
-                        {user.id !== record.created_by ?
-                            <Button onClick={() => handleJoin(record.id)}> Join </Button>
-                            : <Button onClick={() => handleDelete(record.id)}> Delete </Button>}
-                    </Space>
+                    <div>
+                         <Space size="middle">
+                            <Button onClick={() => onRowClick(record)}>Details</Button>
+                            {user.id !== record.created_by ?
+                                <Button onClick={() => handleJoin(record.id)}> Apply </Button>
+                                : <Button onClick={() => handleDelete(record.id)}> Delete </Button>}
+                        </Space>
+                    </div>
                 )
             },
         },
@@ -130,11 +116,11 @@ export function List(props: Props) {
             columns={columns}
             dataSource={data}
             loading={loading}
-            onRow={(record, rowIndex) => {
-                return {
-                    onClick: () => onRowClick(record, rowIndex), // click row
-                };
-            }}
+            // onRow={(record, rowIndex) => {
+            //     return {
+            //         onClick: () => onRowClick(record, rowIndex), // click row
+            //     };
+            // }}
             rowClassName='table-row'
         />
         <ViewActivity data={row} visible={visible} handleModal={toggleModal} />
