@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import moment from 'moment'
 import { Modal, Card, Tag, Row, Col, Comment, Avatar, Form, Button, Input, List } from 'antd'
 import Cookies from 'universal-cookie'
@@ -64,9 +64,8 @@ export function ViewActivity(props: Props) {
     const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
         <>
             <Form.Item>
-                <TextArea rows={4} onChange={onChange} 
-                // value={value}
-                 />
+                <TextArea rows={4} onChange={onChange}
+                />
             </Form.Item>
             <Form.Item>
                 <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
@@ -85,7 +84,7 @@ export function ViewActivity(props: Props) {
 
         setTimeout(() => {
             toggleSubmitting(false)
-            
+
             setComments([
                 ...comments,
                 {

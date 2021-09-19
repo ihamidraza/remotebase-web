@@ -1,9 +1,9 @@
 import React from 'react';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import { LeftSider, MainLayoutWithRouter } from './components'
-import { Activities, SignUp, SignIn, Community, Recommendations } from './views'
+import { Activities, SignUp, SignIn, Community, Recommendations, Profile } from './views'
 import './App.css';
 import axios from 'axios'
 import Cookies from 'universal-cookie'
@@ -59,6 +59,7 @@ function App() {
 								<Route path='/activities' exact render={(props) => <Activities {...props} />} />
 								<Route path='/community' exact render={(props) => <Community {...props} />} />
 								<Route path='/recommendations' exact render={(props) => <Recommendations {...props} />} />
+								<Route path='/profile' exact render={(props) => <Profile {...props} />} />
 
 							</Switch>
 						</>
