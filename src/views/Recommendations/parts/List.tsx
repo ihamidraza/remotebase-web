@@ -7,8 +7,6 @@ import Cookies from 'universal-cookie'
 
 import { ViewActivity } from './View'
 
-import { robins } from '../../../robin'
-import { getConfig } from '../../../config'
 
 import './List'
 import { useState } from 'react'
@@ -30,8 +28,8 @@ export function List(props: Props) {
     const [visible, toggleModal] = useState(false)
     const [row, setRow] = useState(null)
 
-    const onRowClick = (record: any, rowIndex: any) => {
-        console.log(record, rowIndex)
+    const onRowClick = (record: any) => {
+        console.log(record)
 
         setRow(record)
         toggleModal(true)
@@ -54,14 +52,8 @@ export function List(props: Props) {
             key: 'description',
         },
         {
-            title: 'Votes',
-            dataIndex: 'votes',
-            key: 'votes',
-            sorter: (a: any, b: any) => a.votes - b.votes,
-        },
-        {
             title: 'Recommendated By',
-            dataIndex: ['recommendated_by_obj','name'],
+            dataIndex: ['recommendated_by_obj', 'name'],
             key: 'recommendated_by',
         },
         {
@@ -69,7 +61,7 @@ export function List(props: Props) {
             key: 'tags',
             dataIndex: 'tags',
             render: (tags: any) => {
-                // const data = JSON.parse(tags)
+              
                 return (
                     <>
                         {tags.map((tag: any) => {
@@ -86,8 +78,10 @@ export function List(props: Props) {
             },
         },
         {
-            title: 'Action',
-            key: 'action',
+            title: 'Votes',
+            dataIndex: 'votes',
+            key: 'votes',
+            sorter: (a: any, b: any) => a.votes - b.votes,
             render: (text: any, record: any) => {
 
                 const user = cookies.get('profile')
@@ -96,11 +90,29 @@ export function List(props: Props) {
 
                 return (
                     <Space size="middle">
-                        {user.id !== record.recommendated_by && <Button type='link' onClick={() => handleVote(record.id)}> <LikeOutlined /> </Button>}
+                        {text} {
+                        user.id !== record.recommendated_by && 
+                        <Button type='link' onClick={() => handleVote(record.id)}> <LikeOutlined /> </Button>}
                     </Space>
                 )
             },
         },
+        // {
+        //     title: 'Action',
+        //     key: 'action',
+        //     render: (text: any, record: any) => {
+
+        //         const user = cookies.get('profile')
+
+        //         console.log(user.id, record.recommendated_by)
+
+        //         return (
+        //             <Space size="middle">
+        //                 { <Button onClick={() => onRowClick(record)}> Details</Button>}
+        //             </Space>
+        //         )
+        //     },
+        // },
     ];
 
 
@@ -110,11 +122,11 @@ export function List(props: Props) {
             columns={columns}
             dataSource={data}
             loading={loading}
-            onRow={(record, rowIndex) => {
-                return {
-                    onClick: () => onRowClick(record, rowIndex), // click row
-                };
-            }}
+            // onRow={(record, rowIndex) => {
+            //     return {
+            //         onClick: () => onRowClick(record, rowIndex), // click row
+            //     };
+            // }}
             rowClassName='table-row'
         />
         <ViewActivity data={row} visible={visible} handleModal={toggleModal} />

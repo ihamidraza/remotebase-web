@@ -1,19 +1,14 @@
 import moment from 'moment'
-import { Table, Tag, Space, Button, message } from 'antd'
+import { Table, Tag, Space, Button } from 'antd'
 import Cookies from 'universal-cookie'
 
 import { ViewActivity } from './View'
-
-import { robins } from '../../../robin'
-import { getConfig } from '../../../config'
 
 import './List'
 import { useState } from 'react'
 
 
 const cookies = new Cookies();
-
-const { ActivitiesRobin, LoginRobin } = robins
 
 
 interface Props {
@@ -25,10 +20,18 @@ interface Props {
 
 export function List(props: Props) {
 
-    const { data, loading, handleJoin, handleDelete } = props
+    const { data, loading, handleDelete } = props
 
     const [visible, toggleModal] = useState(false)
     const [row, setRow] = useState(null)
+
+    const [requested, setRequest] = useState([] as any)
+
+    const handleJoin = (Id: string) => {
+        props.handleJoin(Id)
+        setRequest([...requested, Id])
+
+    }
 
     const onRowClick = (record: any) => {
 
@@ -74,18 +77,19 @@ export function List(props: Props) {
             key: 'tags',
             dataIndex: 'tags',
             render: (tags: any) => {
-                return (
-                    <>
-                        {tags.map((tag: any) => {
-                            let color = tag.length > 5 ? 'geekblue' : 'green';
-                            return (
-                                <Tag color={color} key={tag}>
-                                    {tag.toUpperCase()}
-                                </Tag>
-                            );
-                        })}
-                    </>
-                )
+               
+                    return (
+                        <>
+                            {tags.map((tag: any) => {
+                                let color = tag.length > 5 ? 'geekblue' : 'green';
+                                return (
+                                    <Tag color={color} key={tag}>
+                                        {tag.toUpperCase()}
+                                    </Tag>
+                                );
+                            })}
+                        </>
+                    )
             },
         },
         {
@@ -95,12 +99,14 @@ export function List(props: Props) {
 
                 const user = cookies.get('profile')
 
+                const isRequested = requested.includes(record.id)
+
                 return (
                     <div>
-                         <Space size="middle">
+                        <Space size="middle">
                             <Button onClick={() => onRowClick(record)}>Details</Button>
                             {user.id !== record.created_by ?
-                                <Button onClick={() => handleJoin(record.id)}> Apply </Button>
+                                <Button onClick={() => handleJoin(record.id)} disabled={isRequested}>{isRequested ? `Applied` : 'Apply'}</Button>
                                 : <Button onClick={() => handleDelete(record.id)}> Delete </Button>}
                         </Space>
                     </div>
@@ -116,11 +122,6 @@ export function List(props: Props) {
             columns={columns}
             dataSource={data}
             loading={loading}
-            // onRow={(record, rowIndex) => {
-            //     return {
-            //         onClick: () => onRowClick(record, rowIndex), // click row
-            //     };
-            // }}
             rowClassName='table-row'
         />
         <ViewActivity data={row} visible={visible} handleModal={toggleModal} />
