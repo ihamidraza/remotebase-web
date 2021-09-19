@@ -1,5 +1,5 @@
 
-import { Modal, Card, Tag } from 'antd'
+import { Modal, Card, Tag, Row, Col } from 'antd'
 import moment from 'moment'
 
 
@@ -14,10 +14,7 @@ export function ViewActivity(props: Props) {
 
     if (!data) return null
 
-    const renderTags = (data: any) => {
-        if(!data.includes('[')) return data
-
-        const tags = JSON.parse(data)
+    const renderTags = (tags: any) => {
         return (
             <>
                 {tags.map((tag: any) => {
@@ -34,6 +31,7 @@ export function ViewActivity(props: Props) {
     }
 
     return <Modal
+        width={800}
         title={data.name}
         visible={visible}
         onCancel={() => handleModal(false)}
@@ -43,40 +41,38 @@ export function ViewActivity(props: Props) {
         <Card
             bordered={false}
         >
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>
-                        <b>Email: </b> {data.email}
-                    </div>
-                    <div>
-                        <b>Phone: </b> {data.phone_number || 'N/A'}
-                    </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <div>
-                        <b>Company: </b> {data.company}
-                    </div>
-                    <div>
+            <Row>
+                <Col span={12}>
+                    <b>Email: </b> {data.email}
+                </Col>
+                <Col span={12}>
+                    <b>Phone: </b> {data.phone_number || 'N/A'}
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12}>
                         <b>Designation: </b> {data.designation}
-                    </div>
-                </div>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div>
+                </Col>
+                <Col span={12}>
+                    <b>Company: </b> {data.company}
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12}>
                     <b>City: </b> {data.city}
-                </div>
-                <div>
-                    <b>country: </b> {data.country}
-                </div>
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div>
+                </Col>
+                <Col span={12}>
+                    <b>Country: </b> {data.country}
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12}>
                     <b>Interests: </b> {renderTags(data.interests)}
-                </div>
-                <div>
+                </Col>
+                <Col span={12}>
                     <b>Skills: </b> {renderTags(data.skills)}
-                </div>
-            </div>
+                </Col>
+            </Row>
 
         </Card>
     </Modal>
