@@ -36,6 +36,15 @@ export function List(props: Props) {
         toggleModal(true)
     }
 
+    const filterTags = (items: any) => {
+        const tagsArray: any[] = [];
+        items.map((item: any) => item.tags.map((tag: any) => tagsArray.push(tag)))
+        return (
+            [...new Set(tagsArray) as any].map( (tag: any) => {return {
+                text: tag,
+                value: tag
+            }}))
+    }
 
     const columns = [
         {
@@ -50,6 +59,17 @@ export function List(props: Props) {
             title: 'Type',
             dataIndex: 'type',
             key: 'type',
+            filters: [
+                {
+                  text: 'Online',
+                  value: 'Online',
+                },
+                {
+                  text: 'Outdoor',
+                  value: 'Outdoor',
+                },
+              ],
+              onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
         },
         {
             title: 'Start Time',
@@ -64,15 +84,17 @@ export function List(props: Props) {
             render: (value: string) => moment(value).format('MMM DD, LT')
 
         },
-        {
-            title: 'Description',
-            dataIndex: 'description',
-            key: 'description',
-        },
+        // {
+        //     title: 'Description',
+        //     dataIndex: 'description',
+        //     key: 'description',
+        // },
         {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
+            filters: filterTags(data),
+            onFilter: (value: any, record: any) => record.tags.includes(value),
             render: (tags: any) => {
                 return (
                     <>

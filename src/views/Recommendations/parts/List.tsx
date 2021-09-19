@@ -38,6 +38,16 @@ export function List(props: Props) {
     }
 
 
+    const filterTags = (items: any) => {
+        const tagsArray: any[] = [];
+        items.map((item: any) => item.tags.map((tag: any) => tagsArray.push(tag)))
+        return (
+            [...new Set(tagsArray) as any].map( (tag: any) => {return {
+                text: tag,
+                value: tag
+            }}))
+    }
+
     const columns = [
         {
             title: 'Name',
@@ -68,6 +78,8 @@ export function List(props: Props) {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
+            filters: filterTags(data),
+            onFilter: (value: any, record: any) => record.tags.includes(value),
             render: (tags: any) => {
                 // const data = JSON.parse(tags)
                 return (
