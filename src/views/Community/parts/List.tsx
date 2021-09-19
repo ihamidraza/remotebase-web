@@ -9,6 +9,7 @@ import { getConfig } from '../../../config'
 
 import './List'
 import { useState } from 'react'
+import React from 'react'
 
 
 const cookies = new Cookies();
@@ -28,18 +29,12 @@ export function List(props: Props) {
     const [visible, toggleModal] = useState(false)
     const [row, setRow] = useState(null)
 
-    const onRowClick = (record: any, rowIndex: any) => {
-        console.log(record, rowIndex)
-
+    const onRowClick = (record: any) => {
         setRow(record)
         toggleModal(true)
     }
 
-    const renderTags = (data: any) => {
-
-        if(!data.includes('[')) return data
-
-        const tags = JSON.parse(data)
+    const renderTags = (tags: any) => {
         return (
             <>
                 {tags.map((tag: any) => {
@@ -67,9 +62,11 @@ export function List(props: Props) {
             sorter: (a: any, b: any) => a.name.localeCompare(b.name),
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'type',
+            title: 'Designation',
+            dataIndex: 'designation',
+            key: 'designation',
+            sorter: (a: any, b: any) => a.designation.localeCompare(b.designation),
+
         },
         {
             title: 'Organization',
@@ -78,26 +75,20 @@ export function List(props: Props) {
             sorter: (a: any, b: any) => a.company.localeCompare(b.company),
 
         },
-        {
-            title: 'Designation',
-            dataIndex: 'designation',
-            key: 'designation',
-            sorter: (a: any, b: any) => a.designation.localeCompare(b.designation),
+        
+        // {
+        //     title: 'Phone',
+        //     dataIndex: 'phone_number',
+        //     key: 'phone_number',
 
-        },
-        {
-            title: 'Phone',
-            dataIndex: 'phone_number',
-            key: 'phone_number',
+        // },
+        // {
+        //     title: 'City',
+        //     dataIndex: 'city',
+        //     key: 'city',
+        //     sorter: (a: any, b: any) => a.city.localeCompare(b.city),
 
-        },
-        {
-            title: 'City',
-            dataIndex: 'city',
-            key: 'city',
-            sorter: (a: any, b: any) => a.city.localeCompare(b.city),
-
-        },
+        // },
         {
             title: 'Country',
             dataIndex: 'country',
@@ -115,7 +106,17 @@ export function List(props: Props) {
             key: 'skills',
             dataIndex: 'skills',
             render: renderTags,
-        }
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (text: any, record: any) => (
+                <div>
+                    <Button onClick={() => onRowClick(record)}>Details</Button>
+                            
+                </div>
+                )
+        },
     ];
 
 
@@ -125,11 +126,6 @@ export function List(props: Props) {
             columns={columns}
             dataSource={data}
             loading={loading}
-            onRow={(record, rowIndex) => {
-                return {
-                    onClick: () => onRowClick(record, rowIndex), // click row
-                };
-            }}
             rowClassName='table-row'
         />
         <ViewActivity data={row} visible={visible} handleModal={toggleModal} />
