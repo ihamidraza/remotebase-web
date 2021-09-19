@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import { Modal, Card, Tag, Row, Col, Comment, Avatar, Form, Button, Input, List } from 'antd'
 import Cookies from 'universal-cookie'
@@ -13,23 +13,29 @@ interface Props {
     handleModal: Function,
     data: any
 }
+let value = ''
 export function ViewActivity(props: Props) {
+
 
     const { data, visible, handleModal } = props
 
     const [comments, setComments] = useState([] as any)
     const [submitting, toggleSubmitting] = useState(false)
-    const [value, setValue] = useState('')
 
     const user = cookies.get('profile')
 
+    useEffect(() => {
 
+        setComments([])
+
+    }, [visible])
 
 
     if (!data) return null
 
     const renderTags = (tags: any) => {
-      
+
+
         return (
             <>
                 {tags.map((tag: any) => {
@@ -58,7 +64,9 @@ export function ViewActivity(props: Props) {
     const Editor = ({ onChange, onSubmit, submitting, value }: any) => (
         <>
             <Form.Item>
-                <TextArea rows={4} onChange={onChange} value={value} />
+                <TextArea rows={4} onChange={onChange} 
+                // value={value}
+                 />
             </Form.Item>
             <Form.Item>
                 <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
@@ -77,7 +85,7 @@ export function ViewActivity(props: Props) {
 
         setTimeout(() => {
             toggleSubmitting(false)
-            setValue('')
+            
             setComments([
                 ...comments,
                 {
@@ -87,11 +95,13 @@ export function ViewActivity(props: Props) {
                     datetime: moment().fromNow(),
                 },
             ]);
+            value = ''
+
         }, 1000);
     };
 
     const handleChange = (e: any) => {
-        setValue(e.target.value)
+        value = e.target.value
 
     };
 
